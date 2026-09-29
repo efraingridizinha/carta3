@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ingridizinha 💖</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fbcfe8 0%, #e9d5ff 50%, #f3e8ff 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -10vh;
+            color: #ec4899;
+            opacity: 0.5;
+            animation: fallDown linear infinite;
+        }
+
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .view-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Ocultado inicialmente ou via classe */
+        .hidden-view {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #d8b4fe, #c084fc);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #e879f9;
+            border-right: 160px solid #e879f9;
+            border-bottom: 120px solid #c084fc;
+            border-top: 100px solid transparent;
+            z-index: 3;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid #f472b6;
+            border-bottom: 100px solid transparent;
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.5s;
+        }
+
+        .envelope-seal {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #be185d;
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hint {
+            margin-top: 60px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #86198f;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 12px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .letter-paper {
+            background-color: #fffaf0;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 0 40px rgba(244, 114, 182, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #f472b622 31px, #f472b622 32px);
+            background-position: 0 10px;
+        }
+
+        .letter-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: #9d174d;
+            margin-bottom: 10px;
+        }
+
+        .letter-body {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            line-height: 32px;
+            color: #374151;
+            text-align: justify;
+        }
+
+        .letter-verse {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #be185d; 
+            font-style: italic;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(253, 242, 248, 0.8);
+            border-radius: 10px;
+            border-left: 4px solid #f472b6;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .letter-footer {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #db2777;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .love-u {
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            color: #e11d48;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Fundo de Corações -->
+    <div id="heart-container"></div>
+
+    <div class="view-container" id="envelope-view">
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope-back"></div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap" id="flap"></div>
+            <div class="envelope-seal">❤️</div>
+        </div>
+        <div class="hint">👆 Clique no envelope para abrir</div>
+    </div>
+
+    <div class="view-container hidden-view" id="letter-view" style="display: none;">
+        <div class="letter-paper">
+            <div class="letter-header">
+                Para: Ingridizinha
+            </div>
+            
+            <div class="letter-body">
+                E de repente... <strong>3 meses!</strong><br><br>
+                Parece tão pouco, mas eu amo pensar que já saboreamos juntos a primeira fatia dessa deliciosa pizza de quatro pedaços que é o nosso ano (já vivemos 1/4!).<br><br>
+                Têm sido três meses de um crescimento lindo ao seu lado, de parceria, de cuidado mútuo e de um amor que só se multiplica.
+            </div>
+
+            <div class="letter-verse">
+                "Um cordão de três dobras não se rebenta com facilidade."<br>
+                <span style="font-size: 12px; font-weight: bold;">— Eclesiastes 4:12</span><br>
+                <span style="font-size: 12px; font-weight: 400; color:#831843;">(Que o Senhor seja sempre a nossa terceira dobra, guardando o nosso relacionamento)</span>
+            </div>
+            
+            <div class="love-u">
+                Eu te amo muiitooo! 🥰
+            </div>
+
+            <div class="letter-footer">
+                De: Efrinha
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Oculto do YouTube -->
+    <div id="music-player" style="display: none;"></div>
+
+    <script>
+        // Função para criar corações flutuantes
+        function createRainHearts() {
+            const container = document.getElementById('heart-container');
+            const hearts = ['💖', '💕', '💗', '🌸', '✨'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('falling-heart');
+                heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                const size = Math.random() * 12 + 15;
+                heart.style.fontSize = size + 'px';
+                const duration = Math.random() * 5 + 7;
+                heart.style.animationDuration = duration + 's';
+                
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }, 300); 
+        }
+
+        createRainHearts();
+
+        // Lógica de transição Envelope -> Carta
+        let isOpened = false;
+
+        function openLetter() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const envelopeView = document.getElementById('envelope-view');
+            const letterView = document.getElementById('letter-view');
+            const flap = document.getElementById('flap');
+            const musicContainer = document.getElementById('music-player');
+
+            // 1. Efeito visual rápido de abrir a aba antes de sumir
+            flap.style.transform = 'rotateX(180deg)';
+            
+            // 2. Transição: Some o envelope, exibe a carta
+            setTimeout(() => {
+                envelopeView.classList.add('hidden-view');
+                
+                setTimeout(() => {
+                    envelopeView.style.display = 'none'; // Some completamente do DOM
+                    letterView.style.display = 'flex';   // Prepara o display da carta
+                    
+                    // Pequeno delay para o navegador registrar o display antes da opacidade (Fade in)
+                    setTimeout(() => {
+                        letterView.classList.remove('hidden-view');
+                    }, 50);
+                }, 800); // Aguarda o fade-out do envelope
+            }, 400); // Pequeno delay de animação da aba
+
+            // 3. Tocar a Música (YouTube Iframe)
+            const videoId = 'kPa7bsKwL-c';
+            musicContainer.innerHTML = `
+                <iframe 
+                    width="1" 
+                    height="1" 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
+    </script>
+</body>
+</html>
